@@ -1,0 +1,11 @@
+<div>
+    <h4>Hobbies</h4>
+    <div *ngFor="let hobby of hobbiesArray">
+      <label>
+        <input type="checkbox" [value]="hobby" (change)="toggleHobby($event, hobby)" [checked]="selectedHobbies.includes(hobby)">
+        {{ hobby }}
+      </label>
+    </div>
+    <button (click)="submit()">Submit</button>
+  </div>
+  

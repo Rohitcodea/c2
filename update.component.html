@@ -1,0 +1,121 @@
+
+ <div>
+  <form [formGroup]="updateForm" (ngSubmit)="update()" >
+    <div class="form-group">
+      <label for="firstname">First Name</label>
+      <input type="text" class="form-control" formControlName="firstname" name="firstname" placeholder="First Name"  [value]="DATAA.firstname">
+      </div>
+      <div
+      *ngIf="updateForm.get('firstname')?.invalid && (updateForm.get('firstname')?.dirty || updateForm.get('firstname')?.touched)">
+      <div *ngIf="updateForm.get('firstname')?.errors?.['required']" class="error-message">
+        <span class="error-text">First Name is required.</span>
+      </div>
+      </div>
+
+
+
+
+      <div class="form-group">
+        <label for="lastname">Last Name</label>
+        <input type="text" class="form-control" name="lastname" formControlName="lastname" placeholder="Last Name"  [value]="DATAA.lastname">
+      </div>
+  
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" formControlName="email" placeholder="Email" [value]="DATAA.email">
+      </div>
+      <div class="form-group">
+        <label for="age">Age</label>
+        <input type="number" class="form-control" formControlName="age" placeholder="age" [value]="DATAA.age">
+      </div>
+  
+      <div class="form-group">
+        <label for="dob">Date Of Birth</label>
+        <input type="date" class="form-control" formControlName="dob" placeholder="dob" [value]="DATAA.dob">
+  
+      </div>
+  
+      <div class="form-group">
+        <label for="mobileNumber">Mobile Number</label>
+        <input type="number" class="form-control" formControlName="number" placeholder="number" [value]="DATAA.number">
+  
+      </div>
+  
+      <div>
+        <label for="gender">Gender</label>
+        <div class="form-check">
+          <input type="radio" class="form-check-input" formControlName="gender" value="Male" [checked]="DATAA.gender === 'Male'">
+          <label class="form-check-label">Male</label>
+        </div>
+        <div class="form-check">
+          <input type="radio" class="form-check-input" formControlName="gender" value="Female" [checked]="DATAA.gender === 'Female'">
+          <label class="form-check-label">Female</label>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="mobileNumber">Current Address</label>
+        <input type="text" class="form-control" formControlName="currentaddress" placeholder="currentaddress" [value]="DATAA.currentaddress">
+  
+      </div>
+      
+      <div class="form-group">
+        <label for="mobileNumber">Current Address2</label>
+        <input type="text" class="form-control" formControlName="currentaddress2" placeholder="currentaddress2" [value]="DATAA.currentaddress2">
+  
+      </div>
+
+      <div >
+        <label for="city">City</label>
+        <input type="text" class="form-control" formControlName="city" name="city" placeholder="city" [value]="DATAA.city">
+
+      </div>
+      <div>
+        <label for="">Pin Code</label>
+        <input type="number" formControlName="postalCode" name="city" [value]="DATAA.postalCode" class="form-control">
+      </div>
+      <div>
+        <label for="selectState">States</label>
+        <select class="form-control" name="selectState"formControlName="selectState" [value]="DATAA.selectState" >
+          <option *ngFor="let stats of indianStates" [value]="stats">{{stats}}</option>
+        </select>
+      </div>
+  
+      <div class="form-group">
+        <label for="country">Country</label>
+        <select class="form-control" formControlName="country" [value]="DATAA.country">
+          <option *ngFor="let CountryN of Countries" [value]="CountryN">{{CountryN}}</option>
+          
+        </select>
+      </div>
+  
+      <div class="form-group">
+        <label for="Course">Course</label>
+        <select class="form-control" formControlName="Course" [value]="DATAA.Course">
+          <option value="">Select</option>
+          <option value="Maths">Maths</option>
+          <option value="Science">Science</option>
+          <option value="Commerce">Commerce</option>
+          <option value="PCM">PCM</option>
+        </select>
+      </div>
+  
+      <div class="containerA">
+        <label for="comments">Additional Comments</label>
+        <input type="text" class="form-control" formControlName="comments" placeholder="Additional Comments" [value]="DATAA.comments">
+      </div>
+   
+
+
+
+      <button data-bs-dismiss="modal" class="btn btn-danger">Back</button> &nbsp;&nbsp;&nbsp;
+    <button type="submit" class="btn btn-primary">Update</button>
+    
+  
+  </form>
+  </div>
+  
+
+
+ 
+ 

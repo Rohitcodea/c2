@@ -1,0 +1,62 @@
+/* Navigation */
+
+nav.container {
+  margin-bottom: 20px;
+}
+
+nav.container h2 {
+  margin: 0;
+}
+
+/* Modal */
+.modal-header h5.modal-title {
+  margin: 0;
+}
+
+.modal-body,
+.modal-footer {
+  padding: 15px;
+}
+
+/* Form */
+.form-group label {
+  font-weight: bold;
+}
+
+/* Table */
+table.table-sm th,
+table.table-sm td {
+  padding: 8px;
+}
+
+table.table-sm th {
+  background-color: #f0f0f0;
+  font-weight: bold;
+}
+
+/* Buttons */
+.btn-primary,
+.btn-danger {
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+/* Error messages */
+.error-message {
+  color: #dc3545; /* Red text for errors */
+  font-weight: bold;
+  margin-top: 5px;
+  font-size: 0.9rem;
+}
+.containerA input[name="comments"] {
+  display: block; /* Change the display property to block */
+  width: 100%; /* Optionally, set the width to 100% to make it fill the container */
+  padding: 5%;
+  /* Add any other styles you want for the "Additional Comments" input */
+}
+
+table {
+  height: auto; /* Adjust height based on your data and layout */
+  overflow-y: auto; /* Enable vertical scrolling if needed */
+}
