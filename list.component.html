@@ -9,6 +9,10 @@
   Add New Entry
 </button>
 
+<button type="button" class="btn btn-primary" (click)="logout()">
+  LogOut
+</button>
+
 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
   aria-hidden="true">
@@ -27,7 +31,7 @@
           <div class="form-group">
             <label for="firstname">First Name</label>
             <input type="text" class="form-control" formControlName="firstname" placeholder="First Name"
-              name="firstname" required>
+              name="firstname" required onkeydown="return /[a-zA-Z ' ']/i.test(event.key)" (paste)="onPasteLetter($event)">
             <div
               *ngIf="dataform.get('firstname')?.invalid && (dataform.get('firstname')?.dirty || dataform.get('firstname')?.touched)">
               <div *ngIf="dataform.get('firstname')?.errors?.['required']" class="error-message">
@@ -45,7 +49,7 @@
           <div class="form-group">
             <label for="lastname">Last Name</label>
             <input type="text" class="form-control" formControlName="lastname" placeholder="Last Name" name="lastname"
-              required>
+              required onkeydown="return /[a-zA-Z ' ']/i.test(event.key)" (paste)="onPasteLetter($event)">
             <div
               *ngIf="dataform.get('lastname')?.invalid && (dataform.get('lastname')?.dirty || dataform.get('lastname')?.touched)">
               <div *ngIf="dataform.get('lastname')?.errors?.['required']" class="error-message">
@@ -89,8 +93,8 @@
 
           <div class="class-group">
             <label for="">Age</label>
-            <input type="number" name="age" placeholder="Enter Your age" class="form-control" formControlName="age"
-              name="age">
+            <input type="text" name="age" placeholder="Enter Your age" class="form-control" formControlName="age"
+              name="age" (keypress)="onlyNumericvalue($event)" (paste)="onPaste($event)" required maxlength="3">
           </div>
           <div *ngIf="dataform.get('age')?.invalid && (dataform.get('age')?.dirty || dataform.get('age')?.touched)">
 
@@ -101,8 +105,8 @@
 
           <div class="class-group">
             <label for="">Mobile Number</label>
-            <input type="number" class="form-control" formControlName="number" placeholder="Mobile Number"
-              name="number">
+            <input type="text" class="form-control" formControlName="number" placeholder="Mobile Number" name="number"
+              (keypress)="onlyNumericvalue($event)" (paste)="onPaste($event)" maxlength="10">
           </div>
           <div
             *ngIf="dataform.get('number')?.invalid && (dataform.get('number')?.dirty || dataform.get('number')?.touched)">
@@ -110,11 +114,10 @@
             <div *ngIf="dataform.get('number')?.errors?.['required']" class="error-message">
               <span>Mobile Number is is required</span>
             </div>
-            <div *ngIf="dataform.get('number')?.errors?.['pattern']" class="error-message">
+            <div *ngIf="dataform.get('number')?.errors?.['minlength']" class="error-message">
               <span>Please enter a valid 10-digit mobile number.</span>
             </div>
           </div>
-
           <div>
             <label for="">Gender</label>
             <div class="form-check">
@@ -146,71 +149,79 @@
 
             <label for="currentaddress">Current Address</label>
             <input type="text" class="form-control" id="currentaddress" name="currentaddress"
-              placeholder="Street Address" required formControlName="currentaddress">
+              placeholder="Street Address" required formControlName="currentaddress" maxlength="61">
             <div class="invalid-feedback" id="currentaddress-error"></div>
             <div
-                *ngIf="dataform.get('currentaddress')?.invalid && (dataform.get('currentaddress')?.dirty || dataform.get('currentaddress')?.touched)">
-                <div *ngIf="dataform.get('currentaddress')?.errors?.['required']" class="error-message">
-                  <span>Current Address is required</span>
-                  </div>
-                  </div>
+              *ngIf="dataform.get('currentaddress')?.invalid && (dataform.get('currentaddress')?.dirty || dataform.get('currentaddress')?.touched)">
+              <div *ngIf="dataform.get('currentaddress')?.errors?.['required']" class="error-message">
+                <span>Current Address is required</span>
+              </div>
+              <div *ngIf="dataform.get('currentaddress')?.errors?.['maxlength']" class="error-message">Max 60 Letters allowed</div>
+
+            </div>
 
 
             <label for="currentaddress2">Street Address 2</label>
-            <input type="text" class="form-control" id="currentaddress2"  name="currentaddress2"
-              placeholder="Street Address 2" formControlName="currentaddress2">
+            <input type="text" class="form-control" id="currentaddress2" name="currentaddress2"
+              placeholder="Street Address 2" formControlName="currentaddress2" maxlength="61">
             <div class="invalid-feedback" id="currentaddress2-error"></div>
             <div
-            *ngIf="dataform.get('currentaddress2')?.invalid && (dataform.get('currentaddress2')?.dirty || dataform.get('currentaddress2')?.touched)">
-            <div *ngIf="dataform.get('currentaddress2')?.errors?.['required']" class="error-message">
-              <span>Current Address 2 is required</span>
+              *ngIf="dataform.get('currentaddress2')?.invalid && (dataform.get('currentaddress2')?.dirty || dataform.get('currentaddress2')?.touched)">
+              <div *ngIf="dataform.get('currentaddress2')?.errors?.['required']" class="error-message">
+                <span>Current Address 2 is required</span>
               </div>
-              </div>
+              <div *ngIf="dataform.get('currentaddress2')?.errors?.['maxlength']" class="error-message"> Max leanth 60</div>
+
+            </div>
 
             <label for="city">City</label>
-            <input type="text" class="form-control" id="city" name="city" placeholder="City" required formControlName="city">
+            <input type="text" class="form-control" id="city" name="city" placeholder="City" required
+              formControlName="city" onkeydown="return /[a-zA-Z ' ']/i.test(event.key)" (paste)="onPasteLetter($event)" maxlength="26">
             <div class="invalid-feedback" id="city-error"></div>
             <div
-            *ngIf="dataform.get('city')?.invalid && (dataform.get('city')?.dirty || dataform.get('city')?.touched)">
-            <div *ngIf="dataform.get('city')?.errors?.['required']" class="error-message">
-              <span>City is required</span>
+              *ngIf="dataform.get('city')?.invalid && (dataform.get('city')?.dirty || dataform.get('city')?.touched)">
+              <div *ngIf="dataform.get('city')?.errors?.['required']" class="error-message">
+                <span>City is required</span>
               </div>
-              </div>
+              <div *ngIf="dataform.get('city')?.errors?.['maxlength']" class="error-message">
+                <span>Max 25 Letters allowed </span>
+                </div>
+            </div>
 
             <label for="state">State</label>
             <select name="selectState" formControlName="selectState" class="form-control">
               <option *ngFor="let states of indianStates" [value]="states">{{states}}</option>
-            </select>            
+            </select>
             <div
-            *ngIf="dataform.get('state')?.invalid && (dataform.get('state')?.dirty || dataform.get('state')?.touched)">
-            <div *ngIf="dataform.get('state')?.errors?.['required']" class="error-message">
-              <span>state is required</span>
+              *ngIf="dataform.get('state')?.invalid && (dataform.get('state')?.dirty || dataform.get('state')?.touched)">
+              <div *ngIf="dataform.get('state')?.errors?.['required']" class="error-message">
+                <span>state is required</span>
               </div>
-              </div>
+            </div>
 
 
             <label for="postalCode">Postal / Zip Code</label>
             <input type="text" class="form-control" id="postalCode" name="postalCode" placeholder="Postal / Zip Code"
-            formControlName="postalCode">
+              formControlName="postalCode" (keypress)="onlyNumericvalue($event)" (paste)="onPaste($event)" maxlength="7" >
             <div class="invalid-feedback" id="postalCode-error"></div>
-            <div *ngIf="dataform.get('postalCode')?.invalid && (dataform.get('postalCode')?.dirty || dataform.get('postalCode')?.touched)">
-            
-            <div *ngIf="dataform.get('postalCode')?.errors?.['required']" class="error-message">
-             <span>Postal Code is required</span>
+            <div
+              *ngIf="dataform.get('postalCode')?.invalid && (dataform.get('postalCode')?.dirty || dataform.get('postalCode')?.touched)">
+
+              <div *ngIf="dataform.get('postalCode')?.errors?.['required']" class="error-message">
+                <span>Postal Code is required</span>
               </div>
-            <!-- <div *ngIf="dataform.get('postalCode')?.errors?.['minLength']" class="error-message"> -->
               <div *ngIf="dataform.get('postalCode')?.errors?.['minlength']" class="error-message">
-             <span>Postal Code Must be 6 Digit </span>
+                <span>Postal Code Must be 6 Digit </span>
               </div>
               <div *ngIf="dataform.get('postalCode')?.errors?.['maxlength']" class="error-message">
-                <span>Postal Code should be 6 Digit</span>
-                </div>
+                <span>Postal Code not be more then 6 Digit</span>
               </div>
+            </div>
             <div class="form-group">
               <label for="country">Country</label>
               <select name="country" formControlName="country" class="form-control">
                 <option *ngFor="let countrys of Countries" [value]="countrys">{{countrys}}</option>
-                
+
               </select>
               <div
                 *ngIf="dataform.get('country')?.invalid && (dataform.get('country')?.dirty || dataform.get('country')?.touched)">
@@ -232,24 +243,24 @@
               <option value="PCM">PCM</option>
             </select>
             <div
-            *ngIf="dataform.get('Course')?.invalid && (dataform.get('Course')?.dirty || dataform.get('Course')?.touched)">
-            <div *ngIf="dataform.get('Course')?.errors?.['required']" class="error-message">
-              <span>Course Name is required</span>
+              *ngIf="dataform.get('Course')?.invalid && (dataform.get('Course')?.dirty || dataform.get('Course')?.touched)">
+              <div *ngIf="dataform.get('Course')?.errors?.['required']" class="error-message">
+                <span>Course Name is required</span>
 
+              </div>
             </div>
-          </div>
 
             <div>
               <label for="imageupload">Upload the Image</label>
               <input type="file" name="imageupload" formControlName="imageupload" accept="image/*" class="form-control">
             </div>
             <div
-            *ngIf="dataform.get('imageupload')?.invalid && (dataform.get('imageupload')?.dirty || dataform.get('imageupload')?.touched)">
-            <div *ngIf="dataform.get('imageupload')?.errors?.['required']" class="error-message">
-              <span>Image is required</span>
+              *ngIf="dataform.get('imageupload')?.invalid && (dataform.get('imageupload')?.dirty || dataform.get('imageupload')?.touched)">
+              <div *ngIf="dataform.get('imageupload')?.errors?.['required']" class="error-message">
+                <span>Image is required</span>
 
+              </div>
             </div>
-          </div>
 
           </div>
           <div class="containerA">
@@ -261,7 +272,7 @@
             *ngIf="dataform.get('comments')?.invalid && (dataform.get('comments')?.dirty || dataform.get('comments')?.touched)">
 
             <div *ngIf="dataform.get('comments')?.errors?.['required']" class="error-message">
-              <span>Commond  is required</span>
+              <span>Commond is required</span>
             </div>
           </div>
 
@@ -299,8 +310,8 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cencel</button>
-        <button type="button" [disabled]="dataform.invalid" (click)="adddata(this.dataform.value )"
-          class="btn btn-primary">Add</button>
+        <button type="button" [disabled]="dataform.invalid" data-bs-dismiss="modal"
+          (click)="adddata(this.dataform.value )" class="btn btn-primary">Add</button>
       </div>
     </div>
   </div>
@@ -323,7 +334,7 @@
       <th>Pincode</th>
       <th>Country</th>
       <th>Course</th>
-          
+
       <th>Delete</th>
       <th>Update</th>
     </tr>
@@ -344,7 +355,7 @@
       <td>{{ item.postalCode }}</td>
       <td>{{ item.country }}</td>
       <td>{{ item.Course }}</td>
-     
+
       <td><button (click)="delete(item.id)" class="btn btn-danger">Delete</button></td>
       <td><button routerLink="/update/{{item.id}}" class="btn btn-warning">Update</button></td>
     </tr>
